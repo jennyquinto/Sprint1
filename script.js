@@ -1,288 +1,170 @@
-//Inf User
+let userList = [{name: 'JENNY', id: '1152192772', passworld: '=1152192772Jv=', userType: 'cliente'},{name: 'VANESSA', id: '71932158', passworld: 'vAnEsSA1991', userType: 'administrador'},{name: 'Leidy', id: '1152192599', passworld: 'leidyquinto', userType: 'cliente'},{name: 'JOHANA', id: '26328964', passworld: '2537893', userType: 'administrador'}];
+let arrayBill = [{nameBill: 'COP5', amount: 0},{nameBill: 'COP10', amount: 0},{nameBill: 'COP20', amount:0},{nameBill: 'COP50', amount: 0},{nameBill: 'COP100', amount: 0}];
 
-const users = [
-    {
-        id: 1,
-        name: 'JENNY',
-        doc: '1152192772',
-        pass: '=1152192772Jv=',
-        type: 'cliente'
-    },
-    {
-        id: 2,
-        name: 'VANESSA',
-        doc: '71932158',
-        pass: 'vAnEsSA1991',
-        type: 'administrador'
-    },
-    {
-        id: 3,
-        name: 'Leidy',
-        doc: '1152192599',
-        pass: 'leidyquinto',
-        type: 'cliente'
-    },
-    {
-        id: 4,
-        name: 'JOHANA',
-        doc: '26328964',
-        pass: '2537893',
-        type: 'admin'
+let tipoDeUsuario; 
+let load;
+let newLoad;
+let balance=0;
+let retiro =0;
+let bill5 = 0;
+let bill10 = 0;
+let bill20 = 0;
+let bill50= 0;
+let bill100 = 0;
+let cash;
+let admin;
+let user;
+// let withdrawall;
+
+let inicio = confirm('Bienvenido');
+
+let login = (id, pass, userList)=>{
+    const user = userList.find(elemento => (elemento.id === id && elemento.passworld===pass));    
+    if(user){ 
+        return user.userType;      
     } 
-];
+    else{
+        alert('El usuario no existe');
+        return null;               
+    }            
+};
 
-const money = [
+const rechargeATM =()=>{
+    let totalLoad = 0;
+    let bills5= parseInt(prompt('Ingrese cantidad billetes 5.000 COP'));
+    const bills10= parseInt(prompt('Ingrese cantidad billetes 10.000 COP'));
+    const bills20= parseInt(prompt('Ingrese cantidad billetes 20.000 COP'));
+    const bills50= parseInt(prompt('Ingrese cantidad billetes 50.000 COP'));
+    const bills100= parseInt(prompt('Ingrese cantidad billetes 100.000 COP'));
+    totalLoad = bills5*5000+bills10*10000+bills20*20000+bills50*50000+bills100*100000;
+    const objBill = {
+        bills5: bills5,
+        bills10: bills10,
+        bills20: bills20,
+        bills50: bills50,
+        bills100: bills100,
+    };    
+    console.log(`Cantidad de billetes cargados de 5.000 COP = ${bills5}\nCantidad de billetes cargados de 10.000 COP = ${bills10}\nCantidad de billetes cargados de 20.000 COP = ${bills20}\nCantidad de billetes cargados de 50.000 COP = ${bills50}\nCantidad de billetes cargados de 100.000 COP = ${bills100}\nTotal de dinero cargado = ${totalLoad}`);    
+    return objBill;   
+};
 
-    {
-        name: '100.000 COP',
-        cantidad: 0,
-        valor: 0
-    },
-    {
-        name: '50.000 COP',
-        cantidad: 0,
-        valor: 0
-    },
-    {
-        name: '20.000 COP',
-        cantidad: 0,
-        valor: 0
-    },
-    {
-        name: '10.000 COP',
-        cantidad: 0,
-        valor: 0
-    },
-    {
-        name: '5.000 COP',
-        cantidad: 0,
-        valor: 0
-    }
-];
-
-let total = 0
-//Declaración de la función que nos permite asignar y mostrar la cantidad y valor de la denominación del billete entregado al cliente
-const cantidadEntregada = (arraysBilletes, denominacion, valorBillete) => {
-    const retiroBill = arraysBilletes.find(din => din.name === denominacion);
-    const cantidadActual = retiroBill.cantidad + 1;
-    retiroBill.cantidad = cantidadActual;
-    retiroBill.valor = cantidadActual * valorBillete;
-    console.log(`Cantidad de billetes de ${denominacion} entregados: ${retiroBill.cantidad}, total = $${retiroBill.valor.toLocaleString()}`)
-}
-
-
-//Declaración de la función cargar dinero
-const cargarDinero = () => {
-    const cincomil = prompt('Ingrese la cantidad de billetes de 5.000COP');
-    const diezmil = prompt('Ingrese la cantidad de billetes de 10.000COP');
-    const veintemil = prompt('Ingrese la cantidad de billetes de 20.000COP');
-    const cincuentamil = prompt('Ingrese la cantidad de billetes de 50.000COP');
-    const cienmil = prompt('Ingrese la cantidad de billetes de 100.000COP');
-
-
-    //Llamamos a las propiedades cantidad y valor para ingresar los datos cargados por el usuario
-    money.forEach(bill => {
-        if (bill.name === '5.000 COP') {
-            const cantidadActual = bill.cantidad + parseInt(cincomil);
-            bill.cantidad = cantidadActual;
-            bill.valor = cantidadActual * 5000;
-            total = total + bill.valor;
-            console.log(bill)
-        }
-        if (bill.name === '10.000 COP') {
-            bill.cantidad = bill.cantidad + parseInt(diezmil);
-            bill.valor = bill.cantidad * 10000;
-            total = total + bill.valor;
-            console.log(bill)
-        }
-        if (bill.name === '20.000 COP') {
-            bill.cantidad = bill.cantidad + parseInt(veintemil);
-            bill.valor = bill.cantidad * 20000;
-            total = total + bill.valor;
-            console.log(bill)
-        }
-        if (bill.name === '50.000 COP') {
-            bill.cantidad = bill.cantidad + parseInt(cincuentamil);
-            bill.valor = bill.cantidad * 50000;
-            total = total + bill.valor;
-            console.log(bill)
-        }
-        if (bill.name === '100.000 COP') {
-            bill.cantidad = bill.cantidad + parseInt(cienmil);
-            bill.valor = bill.cantidad * 100000;
-            total = total + bill.valor;
-            console.log(bill)
-        }
-
-    });
-    console.log(money);
-    console.log('El total del dinero en el cajero es: $', total.toLocaleString()); //toLocaleString() nos permite colocarle los puntos de mil a valores numéricos
-}
-
-
-
-//Declaración de la función retirar dinero
-const retirarDinero = () => {
-    if (total === 0) {
-        console.log('Cajero en mantenimiento vuelva pronto');
-        return
-    }
-    let retiro = prompt('Ingrese la cantidad que desea retirar');
-
-    const retiroBilletes = [
-        {
-            name: '100.000 COP',
-            cantidad: 0,
-            valor: 0
-        },
-        {
-            name: '50.000 COP',
-            cantidad: 0,
-            valor: 0
-        },
-        {
-            name: '20.000 COP',
-            cantidad: 0,
-            valor: 0
-        },
-        {
-            name: '10.000 COP',
-            cantidad: 0,
-            valor: 0
-        },
-        {
-            name: '5.000 COP',
-            cantidad: 0,
-            valor: 0
-        }
-    ];
-
-    let totalEntregado = 0;
-    let transaccionExitosa;
-
-
-    while ((total > 0) && (retiro >= 5000)) {
-        transaccionExitosa = false;
-
-        money.forEach(bill => {
-            if ((retiro >= 100000) && (bill.name === '100.000 COP') && (bill.cantidad > 0)) {
-                const cantidadActual = bill.cantidad - 1;
-
-                retiro = retiro - 100000;
-                bill.cantidad = cantidadActual;
-                bill.valor = cantidadActual * 100000;
-                total = total - 100000;                
-
-                cantidadEntregada(retiroBilletes, bill.name, 100000);
-                console.log(` Cantidad de Billetes de ${bill.name} que quedan el el cajero: ${bill.cantidad}`);
-                totalEntregado = totalEntregado + 100000;
-                transaccionExitosa = true;
-
-            }
-            if ((retiro >= 50000) && (bill.name === '50.000 COP') && (bill.cantidad > 0)) {
-                const cantidadActual = bill.cantidad - 1;
-
-                retiro = retiro - 50000;
-                bill.cantidad = cantidadActual;
-                bill.valor = cantidadActual * 50000;
-                total = total - 50000;
-               
-                cantidadEntregada(retiroBilletes, bill.name, 50000);
-                console.log(` Cantidad de Billetes de ${bill.name} que quedan el el cajero: ${bill.cantidad}`);
-                totalEntregado = totalEntregado + 50000;
-                transaccionExitosa = true;
-            }
-            if ((retiro >= 20000) && (bill.name === '20.000 COP') && (bill.cantidad > 0)) {
-                const cantidadActual = bill.cantidad - 1;
-
-                retiro = retiro - 20000;
-                bill.cantidad = cantidadActual;
-                bill.valor = cantidadActual * 20000;
-                total = total - 20000;        
-
-                cantidadEntregada(retiroBilletes, bill.name, 20000);
-                console.log(` Cantidad de Billetes de ${bill.name} que quedan el el cajero: ${bill.cantidad}`);
-                totalEntregado = totalEntregado + 20000;
-                transaccionExitosa = true;
-            }
-            if ((retiro >= 10000) && (bill.name === '10.000 COP') && (bill.cantidad > 0)) {
-                const cantidadActual = bill.cantidad - 1;
-
-                retiro = retiro - 10000;
-                bill.cantidad = cantidadActual;
-                bill.valor = cantidadActual * 10000;
-                total = total - 10000;  
-
-                cantidadEntregada(retiroBilletes, bill.name, 10000);
-                console.log(` Cantidad de Billetes de ${bill.name} que quedan el el cajero: ${bill.cantidad}`);
-                totalEntregado = totalEntregado + 10000;
-                transaccionExitosa = true;
-            }
-            if ((retiro >= 5000) && (bill.name === '5.000 COP') && (bill.cantidad > 0)) {
-                const cantidadActual = bill.cantidad - 1;
-
-                retiro = retiro - 5000;
-                bill.cantidad = cantidadActual;
-                bill.valor = cantidadActual * 5000;
-                total = total - 5000;
-                
-                cantidadEntregada(retiroBilletes, bill.name, 5000);
-                console.log(` Cantidad de Billetes de ${bill.name} que quedan el el cajero: ${bill.cantidad}`);
-                totalEntregado = totalEntregado + 5000;
-                transaccionExitosa = true;
-            }
-        })
-        if (transaccionExitosa === false) {
-            break;
-        }
-    }
-
-    if (retiro > 0) {
-        console.log('El cajero no puede entregar la suma de: $', retiro.toLocaleString());
-    }
-
-    console.log('El cajero entregó: $', totalEntregado.toLocaleString());
-    if (total > 0) {
-        console.log(retiroBilletes);
-    }
-    console.log('El total de dinero restante en el cajero es de: $', total.toLocaleString());
-    if (total > 0) {
-        console.log(money);
-    }
-}
-
-//2. Un bucle que nos permita ingresar documento y contraseña y validar si existe el usuarios
-const procesar = () => {
-    while (true) {
-        const identificacionUsuario = prompt('Por favor ingrese su documento');
-        const passwordUsuario = prompt('Por favor ingrese su contraseña');
-    
-        //Indentificar si existe un usuario con ese documento
-        const user = users.find(u => u.doc === identificacionUsuario);
-    
-        if (!user) {
-            console.log('El usuario no existe');
-            continue;
-        }
-    
-        if (passwordUsuario === user.pass) {
-            console.log('Bienvenidx ', user.name);
-            if (user.type === 'admin') {
-                cargarDinero();
-            } else {
-                retirarDinero();
-            }
+let creditATM =(billsList,credit)=>{
+    let balance = 0;
+    billsList.forEach(element => {
+        if (element.nameBill === 'COP5') {
+            element.amount += credit.bills5;
+            balance += (5000*element.amount);
+        } else if (element.nameBill === 'COP10') {
+            element.amount += credit.bills10;
+            balance += (10000*element.amount);
+        } else if (element.nameBill === 'COP20') {
+            element.amount += credit.bills20;
+            balance += (20000*element.amount);
+        } else if (element.nameBill === 'COP50') {
+            element.amount += credit.bills50;
+            balance += (50000*element.amount);
         } else {
-            console.log('Por favor verifique la contraseña ingresada');
-            break;
-        }    
+            element.amount += credit.bills100;
+            balance += (100000*element.amount);
+        }
+    });
+    return{billsList,balance};
+};
+
+while(inicio){ 
+    let userId = prompt('Documento');;
+    let userPassword = prompt('Contraseña');;
+    tipoDeUsuario = login(userId,userPassword,userList);          
+    console.log(tipoDeUsuario);
+    if(tipoDeUsuario==='administrador'){
+        load = rechargeATM();
+        admin =creditATM(arrayBill,load);
+        cash = admin.billsList;
+        balance = admin.balance;
+        
+        console.log(`Total billetes 5.000 COP = $${5000*load.bills5}\nTotal billetes 10.000 COP = $${10000*load.bills10}\nTotal billetes 20.000 COP = $${20000*load.bills20}\nTotal billetes 50.000 COP = $${50000*load.bills50}\nTotal billetes 100.000 COP = $${100000*load.bills100}\nTotal general = $${balance}`);   
+
     }
-}
+    else if(tipoDeUsuario==='cliente'){
+        if(balance===0){
+            console.log('Cajero en mantenimiento, vuelva pronto');
+        }else{
+            retiro=parseInt(prompt('Catidad a retirar'));
+            if(retiro >=1000 && retiro <10000){
+                retiro =5000
+            }
+            if(retiro >=10000 && retiro <100000){    
+                retiro =Math.floor(retiro/10000)*10000;
+            }
+            else if(retiro >=100000 && retiro <1000000){    
+                retiro =Math.floor(retiro/10000)*10000;
+            }
+            else if(retiro >=1000000){    
+                retiro =Math.floor(retiro/100000)*100000;
+            }
+            else if (retiro<5000){
+                alert('El retiro minimo es $5000 COP');
+            };
+            console.log(retiro);
+            console.log(`Cantidad disponible para retiro = $${balance}COP\n${cash[0].amount} billete de 5.000COP\n${cash[1].amount} billete de 10.000COP\n${cash[2].amount} billete de 20.000COP\n${cash[3].amount} billete de 50.000COP\n${cash[4].amount} billete de 100.000COP`);
+            newLoad = cash.reverse();
+            const withdrawall = retiro;
+            while(retiro>0){
+                newLoad.forEach(elemento=>{
+                    if(retiro>=100000&&(elemento.amount>bill100)){
+                        bill100++;
+                        retiro-=100000;
+                        // elemento.amount--;
+                        return retiro;            
+                    }
+                    else if(retiro>=50000&&(elemento.amount>bill50)){
+                        bill50++;
+                        retiro-=50000;
+                        // elemento.amount--;
+                        return retiro;
+                    }
+                    else if(retiro>=20000&&(elemento.amount>bill20)){
+                        bill20++;
+                        retiro-=20000;
+                        // elemento.amount--;
+                        return retiro;
+                    }
+                    else if(retiro>=10000&&(elemento.amount>bill10)){
+                        bill10++;
+                        retiro-=10000;
+                        // elemento.amount--;
+                        return retiro;
+                    }
+                    else if(retiro>=5000) {
+                        bill5++;
+                        retiro-=5000;
+                        // elemento.amount--;
+                        return retiro;            
+                    }
+                });
+                newLoad = [{nameBill: 'COP5', amount: bill5}, {nameBill: 'COP10', amount: bill10}, {nameBill: 'COP20', amount: bill20}, {nameBill: 'COP50', amount: bill50}, {nameBill: 'COP100', amount: bill100}];                   
+            };
+            console.log(`Se entregaron:\n${bill5} billete de 5.000COP\n${bill10} billete de 10.000COP\n${bill20} billete de 20.000COP\n${bill50} billete de 50.000COP\n${bill100} billete de 100.000COP`);
+            // console.log(newLoad);
+            user = {
+                bills5: newLoad[0].amount,
+                bills10: newLoad[1].amount,
+                bills20: newLoad[2].amount,
+                bills50: newLoad[3].amount,
+                bills100: newLoad[4].amount,
+            };
+            for(const property in user) {
+                user[property] = user[property] * -1;
+            };            
+            let respuesta = creditATM(cash,user);           
+            console.log(`Total billetes 5.000 COP = $${5000*respuesta.billsList[4].amount}\nTotal billetes 10.000 COP = $${10000*respuesta.billsList[3].amount}\nTotal billetes 20.000 COP = $${20000*respuesta.billsList[2].amount}\nTotal billetes 50.000 COP = $${50000*respuesta.billsList[1].amount}\nTotal billetes 100.000 COP = $${100000*respuesta.billsList[0].amount}\nTotal general = $${respuesta.balance}`)                      
+        };        
+    }
+               
+    inicio = confirm('¿Desea realizar otra operacion?');    
+    
+};
+alert('Hasta pronto!');
 
-procesar();
-
-
-
-
-
+   
 
