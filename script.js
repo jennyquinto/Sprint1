@@ -3,39 +3,32 @@
 const users = [
     {
         id: 1,
-        name: 'Whitney',
-        doc: '1234',
-        pass: '12345',
-        type: 'admin'
-    },
-    {
-        id: 2,
-        name: 'Yurledys',
-        doc: '12345',
-        pass: '123456',
+        name: 'JENNY',
+        doc: '1152192772',
+        pass: '=1152192772Jv=',
         type: 'cliente'
     },
     {
+        id: 2,
+        name: 'VANESSA',
+        doc: '71932158',
+        pass: 'vAnEsSA1991',
+        type: 'administrador'
+    },
+    {
         id: 3,
-        name: 'Yenny',
-        doc: '123456',
-        pass: '1234567',
+        name: 'Leidy',
+        doc: '1152192599',
+        pass: 'leidyquinto',
         type: 'cliente'
     },
     {
         id: 4,
-        name: 'Melissa',
-        doc: '1234567',
-        pass: '12345678',
+        name: 'JOHANA',
+        doc: '26328964',
+        pass: '2537893',
         type: 'admin'
-    },
-    {
-        id: 5,
-        name: 'Yurledys',
-        doc: '12345',
-        pass: '123456',
-        type: 'cliente'
-    }
+    } 
 ];
 
 const money = [
