@@ -1,4 +1,4 @@
-//1. Listado de usuarios
+//Inf User
 
 const users = [
     {
